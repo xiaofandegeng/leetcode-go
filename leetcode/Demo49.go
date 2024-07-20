@@ -3,21 +3,22 @@ package main
 import "sort"
 
 func groupAnagrams(strs []string) [][]string {
-	// 定义一个map接收排序后的str 和 string的数组
+	// 定义一个map装排序后的字符串和当前字符串
 	m := make(map[string][]string)
-
 	for _, str := range strs {
-		// 将str转换为byte排序后再转换为string
 		bytes := []byte(str)
 		sort.Slice(bytes, func(i, j int) bool {
 			return bytes[i] < bytes[j]
 		})
-		tmp := string(bytes)
-		m[tmp] = append(m[tmp], str)
+		// 排序后的bytes转换为字符串
+		sortStr := string(bytes)
+		// 放入到map里面
+		m[sortStr] = append(m[sortStr], str)
 	}
-	// 定义返回结果集合
+	// 定义返回结构体
 	res := make([][]string, 0, len(m))
 
+	// 取出map里面的存储的同义词的集合list
 	for _, v := range m {
 		res = append(res, v)
 	}
