@@ -1,4 +1,4 @@
-package main
+package _map
 
 func longestConsecutive(nums []int) int {
 	// 定义最大长度
