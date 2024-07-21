@@ -1,22 +1,17 @@
 package doublePointer
 
 func moveZeroes(nums []int) {
-	// 当nums的长度小于等于1 直接返回源数组
-	if len(nums) <= 1 {
-		return
-	}
-	fast := 0
+	// 定义一个快慢指针
 	slow := 0
-	n := len(nums)
+	fast := 0
 
-	for fast < n {
+	// 当快指针小于数组长度时
+	for fast < len(nums) {
+		// 如果快指针当前值不为0，则交换到前面去，那么0自然就到后面了
 		if nums[fast] != 0 {
-			tmp := nums[fast]
-			nums[fast] = nums[slow]
-			nums[slow] = tmp
-
-			slow += 1
+			nums[slow], nums[fast] = nums[fast], nums[slow]
+			slow++
 		}
-		fast += 1
+		fast++
 	}
 }

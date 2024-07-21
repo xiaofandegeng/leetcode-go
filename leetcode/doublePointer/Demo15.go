@@ -1,51 +1,51 @@
 package doublePointer
 
-import (
-	"sort"
-)
+import "sort"
 
 func ThreeSum(nums []int) [][]int {
+	// 当数组的个数小于3 直接返回nil
 	if len(nums) < 3 {
 		return nil
 	}
-
-	var result [][]int
+	var res [][]int
+	// 将nums进行排序
 	sort.Ints(nums)
-	n := len(nums)
 
-	for i := 0; i < n-2; i++ {
-		// 如果当前数字大于0，则三数之和一定大于0，所以结束循环
-		if nums[i] > 0 {
-			break
-		}
-
-		// 避免重复解
+	// 定义左右两个指针
+	for i := 0; i < len(nums); i++ {
+		// 定义左右两个指针
+		l := i + 1
+		r := len(nums) - 1
+		// 去除i 和i-1相等值的情况
 		if i > 0 && nums[i] == nums[i-1] {
 			continue
 		}
-
-		l, r := i+1, n-1
 		for l < r {
+			// 求三者的和
 			sum := nums[i] + nums[l] + nums[r]
-			switch {
-			case sum < 0:
+			// 当小于0的时候，移动l
+			if sum < 0 {
 				l++
-			case sum > 0:
+			} else if sum > 0 {
 				r--
-			default:
-				result = append(result, []int{nums[i], nums[l], nums[r]})
+			} else {
+				// 这是三者之和为0，满足条件，放入到结果集合里面
+				res = append(res, []int{nums[i], nums[l], nums[r]})
+				// 移动l和r
 				l++
 				r--
-
-				// 跳过重复的元素
-				for l < r && nums[l] == nums[l-1] {
+				// 排查移动后的l和l-1的值相同，但是在l<r的前提下进行的
+				if l < r && nums[l] == nums[l-1] {
 					l++
 				}
-				for l < r && nums[r] == nums[r+1] {
+				// 排查移动后的r和r+1的值相同，但是在l<r的前提下进行的
+				if l < r && nums[r] == nums[r+1] {
 					r--
 				}
 			}
 		}
+
 	}
-	return result
+
+	return res
 }
