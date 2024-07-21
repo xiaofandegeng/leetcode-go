@@ -1,9 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"leetcode-go/leetcode/doublePointer" // 显式导入包
+)
 
 func main() {
-	nums := []int{-1, 0, 1, 2, -1, -4}
-	result := doublePointer.ThreeSum(nums)
+	height := []int{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}
+	result := doublePointer.Trap(height)
 	fmt.Println(result)
 }
