@@ -1,49 +1,53 @@
 package doublePointer
 
-import "sort"
+import (
+	"sort"
+)
 
 func threeSum(nums []int) [][]int {
 	if len(nums) < 3 {
 		return nil
 	}
 
-	var mySlice [][]int
-
-	n := len(nums)
+	var result [][]int
 	sort.Ints(nums)
-	for i := 0; i < n; i++ {
-		l := i + 1
-		r := n - 1
+	n := len(nums)
+
+	for i := 0; i < n-2; i++ {
+		// 如果当前数字大于0，则三数之和一定大于0，所以结束循环
 		if nums[i] > 0 {
 			break
 		}
 
+		// 避免重复解
 		if i > 0 && nums[i] == nums[i-1] {
 			continue
 		}
+
+		l, r := i+1, n-1
 		for l < r {
 			sum := nums[i] + nums[l] + nums[r]
-			if sum < 0 {
+			switch {
+			case sum < 0:
 				l++
-			} else if sum > 0 {
+			case sum > 0:
 				r--
-			} else {
-				var tmpSlice []int
-				tmpSlice = append(tmpSlice, nums[i])
-				tmpSlice = append(tmpSlice, nums[l])
-				tmpSlice = append(tmpSlice, nums[r])
-				mySlice = append(mySlice, tmpSlice)
+			default:
+				result = append(result, []int{nums[i], nums[l], nums[r]})
 				l++
 				r--
-				for l < r && nums[l] == nums[l-1] && l-1 > 0 {
+
+				// 跳过重复的元素
+				for l < r && nums[l] == nums[l-1] {
 					l++
 				}
-				for l < r && nums[r] == nums[r+1] && r+1 < n {
+				for l < r && nums[r] == nums[r+1] {
 					r--
 				}
 			}
 		}
 	}
-	return mySlice
-
+	return result
 }
+
+
