@@ -1,6 +1,6 @@
 package leetcode
 
-func twoSum(nums []int, target int) []int {
+func TwoSum(nums []int, target int) []int {
 	// 1. 定义一个map
 	m := make(map[int]int)
 
