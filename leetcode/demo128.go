@@ -1,32 +1,32 @@
 package leetcode
 
 func longestConsecutive(nums []int) int {
-	// 定义返回结构体
+	// 1. 定义返回结果
 	maxLen := 0
-
-	// 1. 定义一个map,存放这个值是否存在
+	// 2. 定义一个map，key为int，value为bool
 	m := make(map[int]bool)
-	// 2. 循环nums，将值存入map里面，存在这个值则为true
+
+	// 3. 循环nums，将nums中的值存入到map中
 	for _, v := range nums {
 		m[v] = true
 	}
-	// 3.循环map，如果存在这个值的前一个值，则跳过
-	for k := range m {
-		if m[k-1] {
+	// 4. 循环m，判断m中是否存在v-1，如果存在，则跳过
+	for v := range m {
+		if m[v-1] {
 			continue
 		}
-		// 4. 定义一个临时变量，用来存放当前的长度
+		// 5. 如果不存在，则定义一个长度
 		tmpLen := 1
-		// 5. 循环map，如果存在这个值的后一个值，则临时变量+1
-		for m[k+1] {
+		// 6. 循环m，判断m中是否存在v+1，如果存在，则长度+1
+		for m[v+1] {
 			tmpLen++
-			k++
+			v++
 		}
-		// 6. 如果临时变量大于最大长度，则将临时变量赋值给最大长度
+		// 7. 判断长度是否大于maxLen，如果大于，则将长度赋值给maxLen
 		if tmpLen > maxLen {
 			maxLen = tmpLen
 		}
 	}
-	// 7. 返回最大长度
+
 	return maxLen
 }
